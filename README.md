@@ -57,11 +57,11 @@ Los parámetros de la plantilla son los siguientes:
 | `keywords` | Array de palabras clave en español.
 | `keywords_en` | Array de palabras clave en inglés.
 | `date` | Fecha del trabajo.
-| `bibfile` | Ruta al fichero `.bib` con la bibliorgafía.
+| `bibfile` | Ruta al fichero `.bib` con la bibliografía.
 | `lang` | Código del lenguaje. Por defecto: "es".
 | `cover_theme` | Tema de la portada (light\|dark\|both). Por defecto: "light".
 
-Para ver un ejemplo compléto, véase los contenidos de la carpeta [ejemplo](./ejemplo/) en la raíz del repositorio.
+Para ver un ejemplo completo, véase los contenidos de la carpeta [ejemplo](./ejemplo/) en la raíz del repositorio.
 
 ## Contribuir
 
