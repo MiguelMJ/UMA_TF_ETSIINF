@@ -35,11 +35,9 @@
         grid(
           align: horizon,
           columns: (2fr, 1fr, 3fr),
-          cover.logo.uma,
-          [],
-          cover.logo.etsii,
-        )
-      )
+          cover.logo.uma, [], cover.logo.etsii,
+        ),
+      ),
     )
 
     #set align(center)
@@ -69,17 +67,17 @@
     #v(3cm)
     #upper("Universidad de Málaga")\
     #upper("Málaga, ") #date
-  ]
+  ],
 )
 
 // Template
 #let memoria = (
   body,
   degree: "<titulación>",
-  title: "<título en español>", 
-  title_en: "<título en inglés>", 
-  author: "<autor>", 
-  tutors: "<tutores>", 
+  title: "<título en español>",
+  title_en: "<título en inglés>",
+  author: "<autor>",
+  tutors: "<tutores>",
   department: "<departamento>",
   abstract: none,
   abstract_en: none,
@@ -90,7 +88,6 @@
   lang: "es",
   cover_theme: "light",
 ) => {
-
   // Cover style
   let dark_cover_params = (
     back: rgb("#001f6c"),
@@ -98,8 +95,8 @@
     font: ("Arial", "Liberation Sans", "Noto Sans"),
     logo: (
       uma: image.decode(base64.decode(logoumadarkb64)),
-      etsii: image.decode(base64.decode(logoetsiidarkb64))
-    )
+      etsii: image.decode(base64.decode(logoetsiidarkb64)),
+    ),
   )
   let light_cover_params = (
     back: white,
@@ -107,28 +104,38 @@
     font: "Libertinus Serif",
     logo: (
       uma: image.decode(base64.decode(logoumalightb64)),
-      etsii: image.decode(base64.decode(logoetsiilightb64))
-    )
+      etsii: image.decode(base64.decode(logoetsiilightb64)),
+    ),
   )
 
   // Meta-data
   set document(
     title: title,
     author: author,
-    keywords: keywords
+    keywords: keywords,
   )
-  set text(
-    lang: lang,
-  )
+  set text(lang: lang)
 
   if cover_theme == "both" {
     cover_page(
       dark_cover_params,
-      degree, title, title_en, author, tutors, department, date
+      degree,
+      title,
+      title_en,
+      author,
+      tutors,
+      department,
+      date,
     )
     cover_page(
       light_cover_params,
-      degree, title, title_en, author, tutors, department, date
+      degree,
+      title,
+      title_en,
+      author,
+      tutors,
+      department,
+      date,
     )
   } else {
     cover_page(
@@ -155,82 +162,85 @@
       counter(page).display()
     },
     header: context {
-        show: upper
+      show: upper
 
-        let is_odd = calc.rem(counter(page).get().first(), 2) == 1
-        let selector_ = selector(
-          heading.where(
-            level: 1,
-            outlined: true
-          )
-        )
-        
-        let headings = query(selector_.before(here()))
+      let is_odd = calc.rem(counter(page).get().first(), 2) == 1
+      let selector_ = selector(
+        heading.where(
+          level: 1,
+          outlined: true,
+        ),
+      )
 
-        if is_odd { h(1fr) }
+      let headings = query(selector_.before(here()))
+
+      if is_odd { h(1fr) }
+      if headings.len() > 0 {
+        let heading = headings.last()
+        let level = counter(selector_)
+        level.display(heading.numbering)
+        " "
+        heading.body
+      } else {
+        let selector_ = selector(heading.where(level: 1, outlined: true))
+        let headings = query(selector_)
         if headings.len() > 0 {
-          let heading = headings.last()
-          let level = counter(selector_)
-          level.display(heading.numbering)
+          let heading = headings.first()
+          // a very ugly hack for the first page of the body header
+          heading.numbering
           " "
-          heading.body  
+          heading.body
         } else {
-          let selector_ = selector(heading.where(level:1, outlined: true))
-          let headings = query(selector_)
-          if headings.len() > 0 {
-            let heading = headings.first()
-            // a very ugly hack for the first page of the body header
-            heading.numbering
-            " "
-            heading.body
-          } else {
-            return
-          }
+          return
         }
-        line(
-          length: 100%,
-          stroke: 0.5pt
-        )
       }
+      line(
+        length: 100%,
+        stroke: 0.5pt,
+      )
+    },
   )
   // Code listings styling
-  show raw: it => {  
+  show raw: it => {
     show table.cell: it => {
       if it.x == 0 {
         text(fill: gray, it)
-      }else{
+      } else {
         it
       }
     }
     table(
       align: (right, left),
-      stroke: (x,y) => {
+      stroke: (x, y) => {
         if x == 1 {
           (x: gray)
           if y == 0 {
             (top: gray)
-          } else if y == it.lines.len()-1 {
+          } else if y == it.lines.len() - 1 {
             (bottom: gray)
           }
         }
       },
-      columns: (auto,1fr),
-      ..for line in it.lines {(
-        str(line.number), line.body
-      )}
+      columns: (auto, 1fr),
+      ..for line in it.lines {
+        (
+          str(line.number),
+          line.body,
+        )
+      }
     )
   }
 
   // Body configuration
   set par(
-    justify: true, 
-    linebreaks: "optimized"
+    justify: true,
+    linebreaks: "optimized",
   )
 
   set text(
     size: 12pt,
     overhang: true,
-    number-width: "proportional"
+    number-width: "proportional",
   )
   set heading(numbering: "1.")
 
@@ -244,7 +254,9 @@
 
   // Abstract, index, body and references
   if abstract != none {
-    page(header: none, [
+    page(
+      header: none,
+      [
         #align(center)[
           #set text(size: 15pt)
           *_Resumen_*
@@ -254,13 +266,15 @@
         #if keywords.len() > 0 [
           *Palabras clave*: #keywords.join(", ")
         ]
-      
-      ]
+
+      ],
     )
   }
 
   if abstract_en != none {
-    page(header: none, [
+    page(
+      header: none,
+      [
         #align(center)[
           #set text(size: 15pt)
           *_Abstract_*
@@ -270,7 +284,7 @@
         #if keywords_en.len() > 0 [
           *Keywords*: #keywords_en.join(", ")
         ]
-      ]
+      ],
     )
   }
 
@@ -281,14 +295,13 @@
   body
 
   if bibfile != none {
-      page(
-        header: none,
-        bibliography(
-          bibfile,
-          full: false,
-          style: "apa"
-        )
-      )
+    page(
+      header: none,
+      bibliography(
+        bibfile,
+        full: false,
+        style: "apa",
+      ),
+    )
   }
-
 }
