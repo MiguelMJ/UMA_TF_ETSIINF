@@ -14,6 +14,11 @@ Esta es una plantilla para trabajos finales de grado o máster en la Escuela Té
 
 Está contenida en un solo fichero y basta con importar este en un documento [Typst](https://typst.app/docs/) para utilizarla. Aunque el propio código de la es muy ligero, el peso del fichero es debido principalmente a las imágenes incrustadas que usan para la portada.
 
+Muchos alumnos estarán más familiarizados con LaTeX que con Typst. Por eso, se incuyen aquí algunos enlaces útiles para empezar y descubrir sus ventajas:
+
+- [Guide for LaTeX users - Typst Documentation](https://typst.app/docs/guides/guide-for-latex-users/)
+- [Tutorial - Typst Documentation](https://typst.app/docs/tutorial/)
+
 ### Características
 
 - Portada con los logos de la universidad y de la escuela, a seleccionar entre el estilo oscuro (fondo azul, logos en negativo y letra sin serifa), el claro (logos en positivo y letra con serifa) o ambos (el oscuro primero y el claro después).
@@ -26,6 +31,8 @@ Está contenida en un solo fichero y basta con importar este en un documento [Ty
 La plantilla se ha creado con la idea de que el alumno/a pueda centrarse única y exclusivamente en el contenido de su trabajo, preocupándose lo mínimo por las cuestiones del maquetado.
 
 ## Uso
+
+Basta con tener el fichero `uma_etsi_inf.typ` en el mismo directorio que el fichero `.typ` de tu memoria (por ejemplo, `main.typ`). De este fichero, se importa la variable `memoria` y se utiliza en una regla `show` con los parámetros de tu trabajo.
 
 `main.tpy`:
 ```typst
@@ -42,7 +49,7 @@ La plantilla se ha creado con la idea de que el alumno/a pueda centrarse única 
 En un lugar de la mancha...
 ```
 
-Los parámetros de la plantilla son los siguientes:
+### Parámetros
 
 |Nombre|Descripción|
 |---|------|
